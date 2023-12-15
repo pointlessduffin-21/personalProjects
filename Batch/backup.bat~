@@ -11,6 +11,5 @@ IF NOT EXIST %BackupFolderPath% mkdir %BackupFolderPath%
 
 ECHO DB Backup started...
 cd %MySQLDir%
-ECHO Start backing up: %dbName% to %BackupFolderPath%
 mysqldump -u root -p %dbName% > "%BackupFolderPath%%BackupFileName%"
 ECHO DB Backup completed... 
