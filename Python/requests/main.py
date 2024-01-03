@@ -1,7 +1,8 @@
 import openai
 import json
 
-openai.api_base = "http://localhost:4891/v1"
+# openai.api_base = "http://localhost:4891/v1" # Local LLM
+openai.api_base = "https://gpt4all-api.yeems214.xyz/v1" # Remote LLM
 openai.api_key = "not needed for a local LLM"
 
 #Print
