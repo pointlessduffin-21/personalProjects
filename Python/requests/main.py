@@ -1,16 +1,45 @@
-# This is a sample Python script.
+import openai
+import json
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+openai.api_base = "http://localhost:4891/v1"
+openai.api_key = "not needed for a local LLM"
 
+#Print
+print("Welcome to Duffin's LLaMA Language Model!")
+print("This is a local version of the Llama Language Model.")
+print("It's also uncensored ;)")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Get user input
+user_input = input("Please enter your prompt: ")
+# Set up the prompt and other parameters for the API request
+prompt = user_input
 
+model = "llama2_7b_chat_uncensored.Q4_0.gguf"
+print("Delivering prompt to: " + model)
+print("Generating response...")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Make the API request
+response = openai.Completion.create(
+    model=model,
+    prompt=prompt,
+    max_tokens=1024,
+    temperature=0.7,
+    top_p=0.4,
+    n=1,
+    echo=True,
+    stream=False
+)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#Convert OpenAI response to JSON
+response_json_str = json.dumps(response)
+
+#Convert JSON to Python
+api_response = json.loads(response_json_str)
+
+#Extraction
+text_response = api_response['choices'][0]['text']
+print("Response generated!")
+print(text_response)
+
+# # Print the raw JSON output
+# print(response)
